@@ -1,13 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-
 class ProdutosController extends Controller
 {
-
-
 private $produtos = [
     [
         'nome' => 'Processador Intel I9',
@@ -59,45 +54,26 @@ private $produtos = [
         'promocao' => true
     ]
 ];
-
-
-
     public function index(){
         $i=1;
         $j=1;
-
-
         $produtos_novos = array_filter($this->produtos, fn($n) => $n['novo'] =='1' );
         $produtos_usados = array_filter($this->produtos, fn($n) => $n['novo'] =='' );
         return  view("Produtos.produtos", compact("produtos_usados", "produtos_novos", "i","j"));
-
     }
-
-
-
-
-
-
     public function filter ( $value){
         $i=1;
         $j=1;
         $produtos_novos=array('');
         $produtos_usados=array('');
-
         if ( $value =='novos'){
             $produtos_novos = array_filter($this->produtos, fn($n) => $n['novo'] =='1' );
             $produtos_usados=false;
         }
-
         else if (  $value =='usados'){
             $produtos_usados = array_filter($this->produtos, fn($n) => $n['novo'] =='' );
             $produtos_novos=false;
         }
-
         return  view("Produtos.produtos", compact("produtos_usados", "produtos_novos", "i","j"));
-
     }
-
-
-
 }
